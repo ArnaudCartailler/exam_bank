@@ -12,11 +12,14 @@ include('includes/header.php');
 
 	<h1>Mon application bancaire</h1>
 
-	<form class="newAccount" action="../controllers/account.php" method="post">
+    <form class="newAccount" action="index.php" method="post">		
 		<label>Sélectionner un type de compte</label>
 		<select class="" name="name" required>
 			<option value="" disabled>Choisissez le type de compte à ouvrir</option>
-			<?php // Listez les options possibles à choisir (compte courant, PEL, etc.) ?>
+			<option value="pel">PEL</option>
+			<option value="courant">Compte courant</option>
+			<option value="livret">Livret A</option>
+			<option value="joint">Compte joint</option>
 		</select>
 		<input type="submit" name="new" value="Ouvrir un nouveau compte">
 	</form>
