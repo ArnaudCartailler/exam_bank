@@ -2,6 +2,7 @@
 
 include('includes/header.php');
 
+
 ?>
 
 <div class="container">
@@ -62,6 +63,13 @@ include('includes/header.php');
 						<input type="hidden" name="idDebit" value="<?php echo $account->getId(); ?>" required>
 						<label for="">Sélectionner un compte pour le virement</label>
 						<select name="idPayment" required>
+						<?php
+									if(isset($message))
+									{
+										echo '<p>'. $message .'</p>';
+									}	
+
+						?>
 							<option value="" disabled>Choisir un compte</option>
 
 							<?php foreach ($accounts as $accountListing) { ?>
@@ -71,6 +79,7 @@ include('includes/header.php');
 								<?php echo $accountListing->getName(); ?></option>
 
 							<?php 
+				
 								} 
 							?>
 							

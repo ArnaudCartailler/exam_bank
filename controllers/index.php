@@ -133,6 +133,7 @@ if (isset($_POST['delete']))
 /**
  * Can transfer money
  */
+
 if (isset($_POST['transfer'])) 
 {
     if (isset($_POST['balance'])) 
@@ -160,6 +161,10 @@ if (isset($_POST['transfer']))
                     $AccountManager->update($Giver);
                     
                     $AccountManager->update($Recipient);
+                }else
+                {
+
+                    $message ='Choose a different account';
                 }
             }
         }
