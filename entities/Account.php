@@ -33,9 +33,10 @@ class Account
         foreach ($donnees as $key => $value)
         {
             // On récupère le nom du setter correspondant à l'attribut.
-            
-            $method = 'set'.ucfirst($key);
-            
+            if (is_string($key)) 
+            {
+                $method = 'set'.ucfirst($key);
+            }
                 
             // Si le setter correspondant existe.
             if (method_exists($this, $method))
@@ -47,31 +48,65 @@ class Account
     }
 
 
-    public function addMoney(Account $money){
+    /**
+     * Add money on the target account
+     *
+     * @param int $balance
+     * @return void
+     */
 
-        $this->balance += $money;
+    public function addMoney($balance)
+    {
+        $balance = (int) $balance;
 
-        return $balance;
+        $balance = $this->getBalance() + $balance;
 
+        return $this->setBalance($balance);
     }
 
-    public function pullMoney(Account $money){
+    /**
+     * Pull Money on the target account
+     *
+     * @param int $balance
+     * @return void
+     */
 
-        $this->balance -= $money;
+    public function pullMoney($balance)
+    {
+        $balance = (int) $balance;
 
-            if ($this->balance < 0){
-            
-                 self::OVERDRAFT;
-        }
+        $balance = $this->getBalance() - $balance;
 
-        return $balance;
-
+        return $this->setBalance($balance);
     }
 
-    public function paymentMoney(){
+    /**
+     * Transfer money of an account to an other
+     *
+     * @param Account $user
+     * @param int $balance
+     * @return void
+     */
+    public function transferMoney(Account $user, $balance)
+    {
+        $balance = (int) $balance;
 
+        $addMoney = $user->getBalance() + $balance;
 
+        $this->removeMoney($balance);
 
+        return $user->setBalance($addMoney);
+
+    }
+    
+    public function removeMoney($balance)
+    {
+        $balance = (int) $balance;
+
+        $removeMoney = $this->getBalance() - $balance;
+
+        return $this->setBalance($removeMoney);
+    
     }
 
     /**

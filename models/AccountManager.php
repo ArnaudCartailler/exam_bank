@@ -79,7 +79,7 @@ class AccountManager
         $req->execute();
         $takeAllBdd = $req->fetchAll();
         foreach ($takeAllBdd as $oneAccount) {
-            $account = new Car($oneAccount);
+            $account = new Account($oneAccount);
         }
         return $account;
     }
@@ -98,6 +98,7 @@ class AccountManager
         foreach ($takeAllDb as $allAccounts) {
             $accounts[] = new Account($allAccounts);
         }
+    return $accounts;
     }
 
     /**
