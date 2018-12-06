@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Save our autoload.
 function chargerClasse($classname)
 {
@@ -18,6 +20,14 @@ spl_autoload_register('chargerClasse');
 $db = Database::DB();
 
 $AccountManager = new AccountManager($db);
+
+if(!isset($_GET['id']))
+{
+    header('location: connexion.php');
+        }else
+        {
+            header('location: index.php');
+}
 
 /**
  * Add a account and hydrate with 80€
