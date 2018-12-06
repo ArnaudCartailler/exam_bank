@@ -62,7 +62,7 @@ class UserManager
 
      public function getUserByEmail(string $email)
     {
-        $user;
+        // $user;
         $req = $this->getDb()->prepare('SELECT * FROM users WHERE email = :email');
         $req->bindValue(':email', $email, PDO::PARAM_STR);
         $req->execute();

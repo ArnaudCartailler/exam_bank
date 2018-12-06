@@ -9,6 +9,10 @@ include('includes/header.php');
 
 	<header class="flex">
 		<p class="margin-right">Bienvenue sur l'application Comptes Bancaires</p>
+
+					<form class="delete" action="connexion.php" method="post">
+				 		<button type="submit" name="deco" value="deco">Disconnection</button>
+			 		</form>
 	</header>
 
 	<h1>Mon application bancaire</h1>

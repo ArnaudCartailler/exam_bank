@@ -2,7 +2,6 @@
 
 include('includes/header.php');
 
-
 ?>
 
     <header class="flex">
@@ -28,6 +27,16 @@ include('includes/header.php');
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" name="signin" type="submit">Sign in</button>
 
+              <?php
+
+                if(isset($message)){
+                
+                  echo '<p>'. $message .'</p>';
+
+                }
+                
+              ?>
+              
             </form>
           </div>
         </div>

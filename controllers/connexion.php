@@ -58,22 +58,30 @@ $UserManager = new UserManager($db);
 
     $getEmail = htmlspecialchars($_POST['email']);
 
-    $user = $UserManager->getUserByEmail($getEmail);
-
     $getPass = htmlspecialchars($_POST['pass']);
     
-    $isPasswordCorrect = password_verify($getPass, $user->getPass());
+    $message ="";
         
-        if(!$user){
-            header("location: connexion.php");
-        }else{
-            
-            session_start();
-
-            $getEmail = htmlspecialchars($_POST['email']);
-
-            header("URL=index.php?email=". $_GET['email'] ."");
+        if(!$UserManager->checkIfExist($getEmail))
+        {            
+            $message = "Ce compte n'existe pas";
         }
+
+        else
+        {
+            $user = $UserManager->getUserByEmail($getEmail);
+            
+             $isPasswordCorrect = password_verify($getPass, $user->getPass());
+
+             if($isPasswordCorrect)
+             {
+                session_start();
+
+                $_SESSION['user'] = $user;
+
+                header("location: index.php");
+        }
+    }
 
  }
 

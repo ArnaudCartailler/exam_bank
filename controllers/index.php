@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 
 // Save our autoload.
 function chargerClasse($classname)
@@ -17,17 +16,22 @@ function chargerClasse($classname)
 
 spl_autoload_register('chargerClasse');
 
+session_start();
+
 $db = Database::DB();
+
+if(!isset($_SESSION['user']))
+{
+    header('location: connexion.php');
+
+        }else
+        {
+
+           $user = $_SESSION['user']; 
+}
 
 $AccountManager = new AccountManager($db);
 
-if(!isset($_GET['id']))
-{
-    header('location: connexion.php');
-        }else
-        {
-            header('location: index.php');
-}
 
 /**
  * Add a account and hydrate with 80€
@@ -173,14 +177,24 @@ if (isset($_POST['transfer']))
                     $AccountManager->update($Recipient);
                 }else
                 {
-
-                    $message ='Choose a different account';
+                    $message = 'Choose a different account';
                 }
             }
         }
     }
 }
 
+/**
+ * Disconnect
+ */
+
+ if(isset($_POST['deco']))
+ {
+
+     session_destroy();
+
+     header("location: connexion.php");
+ }
 
 
 $accounts = $AccountManager->getAccounts();
