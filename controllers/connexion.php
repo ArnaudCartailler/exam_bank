@@ -78,7 +78,7 @@ $UserManager = new UserManager($db);
                 session_start();
 
                 $_SESSION['user'] = $user;
-
+                $_SESSION['id'] = $user->getId();
                 header("location: index.php");
         }
     }

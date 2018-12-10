@@ -20,18 +20,20 @@ session_start();
 
 $db = Database::DB();
 
+
 if(!isset($_SESSION['user']))
 {
     header('location: connexion.php');
 
         }else
         {
-
+            
            $user = $_SESSION['user']; 
 }
 
 $AccountManager = new AccountManager($db);
 
+var_dump($_SESSION['id']);
 
 /**
  * Add a account and hydrate with 80€
@@ -44,7 +46,8 @@ if(!empty($_POST['name'])){
             $AccountManager = new AccountManager($db);
                 $newAccount = new Account([
                             'name' => $name,
-                            'balance' => 80,
+                            'balance' => 0,
+                            'id_users' => $_SESSION['id']
                                 ]);
             $addAccount = $AccountManager->addAccount($newAccount);
             header('location: index.php');
@@ -53,6 +56,7 @@ if(!empty($_POST['name'])){
                 $newAccount = new Account([
                             'name' => $name,
                             'balance' => 80,
+                            'id_users' =>$_SESSION['id']
                                 ]);
             $addAccount = $AccountManager->addAccount($newAccount);
             header('location: index.php');
@@ -60,7 +64,8 @@ if(!empty($_POST['name'])){
             $AccountManager = new AccountManager($db);
                 $newAccount = new Account([
                             'name' => $name,
-                            'balance' => 80,
+                            'balance' => 0,
+                            'id_users' =>$_SESSION['id']
                                 ]);
             $addAccount = $AccountManager->addAccount($newAccount);
             header('location: index.php');
@@ -69,11 +74,11 @@ if(!empty($_POST['name'])){
                 $newAccount = new Account([
                             'name' => $name,
                             'balance' => 80,
+                            'id_users' =>$_SESSION['id']
                                 ]);
             $addAccount = $AccountManager->addAccount($newAccount);
             header('location: index.php');
         }
-      
 }
 
 /**
@@ -91,7 +96,7 @@ if (isset($_POST['payment']))
 
             $balance = htmlspecialchars($_POST['balance']);
 
-            $getAccount = $AccountManager->getAccountById($getId);
+            $getAccount = $AccountManager->getAccountById($getId, $_SESSION['id']);
 
             $addMoney = $getAccount->addMoney($balance);
 
@@ -116,7 +121,7 @@ if (isset($_POST['debit']))
 
             $balance = htmlspecialchars($_POST['balance']);
 
-            $getAccount = $AccountManager->getAccountById($getId);
+            $getAccount = $AccountManager->getAccountById($getId, $_SESSION['id']);
 
             $pullMoney = $getAccount->pullMoney($balance);
 
@@ -138,7 +143,7 @@ if (isset($_POST['delete']))
 
             $getId = htmlspecialchars($_POST['id']);
 
-            $getAccount = $AccountManager->getAccountById($getId);
+            $getAccount = $AccountManager->getAccountById($getId, $_SESSION['id']);
 
             $AccountManager->deleteAccount($getAccount);
         }
@@ -166,9 +171,9 @@ if (isset($_POST['transfer']))
 
                 if ($idPayment !== $idDebit) 
                 {
-                    $Giver = $AccountManager->getAccountById($idDebit);
+                    $Giver = $AccountManager->getAccountById($idDebit, $_SESSION['id']);
 
-                    $Recipient = $AccountManager->getAccountById($idPayment);
+                    $Recipient = $AccountManager->getAccountById($idPayment, $_SESSION['id']);
 
                     $Giver->transferMoney($Recipient, $balance);
 
@@ -197,6 +202,6 @@ if (isset($_POST['transfer']))
  }
 
 
-$accounts = $AccountManager->getAccounts();
+$accounts = $AccountManager->getAccounts($_SESSION['id']);
 
 include "../views/indexView.php";

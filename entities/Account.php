@@ -7,7 +7,8 @@ class Account
 
         protected   $id,
                     $name,
-                    $balance;
+                    $balance,
+                    $id_users;
 
     const OVERDRAFT = 1;
 
@@ -132,6 +133,22 @@ class Account
         return $this;
     }
 
+     /**
+     * Set the value of idAccount
+     *
+     * @return  self
+     */
+
+    public function setIdUsers($id_users)
+    {
+        $id_users = (int) $id_users;
+
+        $this->id_users = $id_users;
+
+        return $this;
+    }
+
+
     /**
      * Set name
      *
@@ -174,6 +191,7 @@ class Account
         return $this->id;
     }
 
+
     /**
      * Get the name
      *
@@ -190,6 +208,14 @@ class Account
        public function getBalance()
     {
         return $this->balance;
+    }
+
+    /**
+     * Get the value of users id
+     */
+    public function getIdUsers()
+    {
+        return $this->id_users;
     }
 
 }
