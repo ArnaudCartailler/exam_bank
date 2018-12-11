@@ -52,7 +52,7 @@ class Account
      * Add money on the target account
      *
      * @param int $balance
-     * @return void
+     * @return int
      */
 
     public function addMoney($balance)
@@ -68,7 +68,7 @@ class Account
      * Pull Money on the target account
      *
      * @param int $balance
-     * @return void
+     * @return int
      */
 
     public function pullMoney($balance)
@@ -85,7 +85,7 @@ class Account
      *
      * @param Account $user
      * @param int $balance
-     * @return void
+     * @return int
      */
     public function transferMoney(Account $user, $balance)
     {
@@ -99,6 +99,13 @@ class Account
 
     }
     
+    /**
+     * Used this method for the transfer
+     *
+     * @param int $balance
+     * @return int
+     */
+
     public function removeMoney($balance)
     {
         $balance = (int) $balance;
@@ -152,7 +159,7 @@ class Account
      * Set balance
      *
      * @param int $balance
-     * @return void
+     * @return self
      */
       public function setBalance($balance)
     {
